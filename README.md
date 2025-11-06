@@ -25,7 +25,7 @@ Another project built with JavaScript, this time working with more advanced code
 
 Here are some screenshots of the project in action 👇
 
-<img src="images/print1.png"> <img src="images/print2.png">
+<img src="print1.png"> <img src="print2.png">
 ✨ Summary
 
 This project was developed to practice JavaScript ES6 features, data validation, and LocalStorage manipulation while integrating a simple and clean Bootstrap interface.
