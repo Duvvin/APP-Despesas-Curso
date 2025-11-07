@@ -29,3 +29,5 @@ Here are some screenshots of the project in action 👇
 ✨ Summary
 
 This project was developed to practice JavaScript ES6 features, data validation, and LocalStorage manipulation while integrating a simple and clean Bootstrap interface.
+
+👨‍🔧 I fixed a problem where non-numeric characters could be sent in the 'day' and 'value' fields.
