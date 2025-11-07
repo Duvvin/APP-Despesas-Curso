@@ -13,6 +13,16 @@ class Despesa {
 			if(this[i] == undefined || this[i] == '' || this[i] == null) {
 				return false
 			}
+			if(['dia'].includes(i)) {
+				if (!/^\d+$/.test(this[i])) {
+					return false
+				}
+			}
+			if(['valor'].includes(i)) {
+				if (!/^\d+$/.test(this[i])) {
+					return false
+				}
+			}
 		}
 		return true
 	}
@@ -128,29 +138,33 @@ function cadastrarDespesa() {
 	let mes = document.getElementById('mes')
 	let dia = document.getElementById('dia')
 	let tipo = document.getElementById('tipo')
-	let descricao = document.getElementById('descricao')
+	let descricao = document.getElementById('descricao').value
 	let valor = document.getElementById('valor')
+
+	descricao = descricao.toLowerCase().trim()
+	descricao = descricao.charAt(0).toUpperCase() + descricao.slice(1)
 
 	let despesa = new Despesa(
 		ano.value, 
 		mes.value, 
 		dia.value, 
 		tipo.value, 
-		descricao.value,
+		descricao,
 		valor.value
 	)
 
 
 	if(despesa.validarDados()) {
+
 		bd.gravar(despesa)
 
 		document.getElementById('modal_titulo').innerHTML = 'Registro inserido com sucesso'
-		document.getElementById('modal_titulo_div').className = 'modal-header text-success'
-		document.getElementById('modal_conteudo').innerHTML = 'Despesa foi cadastrada com sucesso!'
-		document.getElementById('modal_btn').innerHTML = 'Voltar'
-		document.getElementById('modal_btn').className = 'btn btn-success'
+		document.getElementById('modal-header').className = 'modal-header text-success'
+		document.getElementById('textCampo').innerHTML = 'Despesa foi cadastrada com sucesso!'
+		document.getElementById('textButton').innerHTML = 'Voltar'
+		document.getElementById('textButton').className = 'btn btn-success'
 
-		$('#modalRegistraDespesa').modal('show') 
+		$('#registrarDespesa').modal('show') 
 
 		ano.value = '' 
 		mes.value = ''
@@ -162,12 +176,12 @@ function cadastrarDespesa() {
 	} else {
 		
 		document.getElementById('modal_titulo').innerHTML = 'Erro na inclusão do registro'
-		document.getElementById('modal_titulo_div').className = 'modal-header text-danger'
-		document.getElementById('modal_conteudo').innerHTML = 'Erro na gravação, verifique se todos os campos foram preenchidos corretamente!'
-		document.getElementById('modal_btn').innerHTML = 'Voltar e corrigir'
-		document.getElementById('modal_btn').className = 'btn btn-danger'
+		document.getElementById('modal-header').className = 'modal-header text-danger'
+		document.getElementById('textCampo').innerHTML = 'Erro na gravação, verifique se todos os campos foram preenchidos corretamente!'
+		document.getElementById('textButton').innerHTML = 'Voltar e corrigir'
+		document.getElementById('textButton').className = 'btn btn-danger'
 
-		$('#modalRegistraDespesa').modal('show') 
+		$('#registrarDespesa').modal('show') 
 	}
 }
 
@@ -209,7 +223,7 @@ function carregaListaDespesas(despesas = Array(), filtro = false) {
         btn.onclick = function() {
             let id = this.id.replace("id_despesa_", '')
             bd.remover(id)
-            window.location.reload
+            window.location.reload()
         }
         linha.insertCell(4).append(btn)
 	})
